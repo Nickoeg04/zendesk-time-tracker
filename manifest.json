@@ -1,0 +1,16 @@
+{
+"manifest_version": 2,
+"name": "Time-tracker",
+"version": "1.0.0",
+"description": "",
+"permissions":[ "storage","*://*.zendesk.com/*"],
+"browser_action":{
+    "default_popup": "popup.html"
+},
+"content_scripts":[{
+    "matches":["*://*.zendesk.com/agent/tickets/*"],
+    "js":["content_script.js"]
+}]
+}
+
+
