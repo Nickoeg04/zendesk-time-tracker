@@ -1,17 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="popup.css">
-</head>
-<body>
-    <div id="ticketNummer">0000</div>
-    <div id="timer">00:00:00</div>
-    <button id="startStopKnop">Start</button>
-    <button id="reset">Reset</button>
-    <div id="timersVandaag"></div>
-    <button id="kopieerKnop">Kopieer</button>
-    <script src="popup.js"></script>
-</body>
-</html>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="popup.css">
+    </head>
+    <body>
+        <h1>Time Tracker</h1>
+        <div id="ticketNummer">Ticket #<span id="ticketNr">0000</span></div>
+        <div id="timer">00:00:00</div>
+        <div class="knoppen">
+            <button id="startStopKnop">Start</button>
+            <button id="reset">Reset</button>
+        </div>
+        <h2>Vandaag</h2>
+        <div id="timersVandaag"></div>
+        <button id="kopieerKnop">Kopieer</button>
+        <script src="popup.js"></script>
+    </body>
+    </html>

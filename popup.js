@@ -2,7 +2,7 @@ async function haalTicketsOp() {
   const tabs = await browser.tabs.query({ currentWindow: true, active: true });
   const url = tabs[0].url;
   const ticketNummer = url.split("/").pop();
-  document.getElementById("ticketNummer").textContent = ticketNummer;
+  document.getElementById("ticketNr").textContent = ticketNummer;
   return ticketNummer;
 
   /* await new Promise(r=>setTimeout(r,100));
@@ -51,6 +51,7 @@ const timer = async () => {
 
   if (running === true) {
     document.getElementById("startStopKnop").textContent = "Stop";
+    document.getElementById("startStopKnop").style.backgroundColor = "#ef4444";
     interval = setInterval(() => {
       document.getElementById("timer").textContent = timeToString(
         elapsed + Date.now() - startedAt,
@@ -80,6 +81,7 @@ const timer = async () => {
   document.getElementById("startStopKnop").addEventListener("click", () => {
     if (running === false) {
       document.getElementById("startStopKnop").textContent = "Stop";
+      document.getElementById("startStopKnop").style.backgroundColor = "#ef4444";
       running = true;
       startedAt = Date.now();
       interval = setInterval(() => {
@@ -93,6 +95,7 @@ const timer = async () => {
       elapsed += Date.now() - startedAt;
       clearInterval(interval);
       document.getElementById("startStopKnop").textContent = "Start";
+      document.getElementById("startStopKnop").style.backgroundColor = "#22c55e";
       opslaan();
     }
   });
@@ -105,6 +108,7 @@ const timer = async () => {
     interval = null;
     document.getElementById("timer").textContent = "00:00:00";
     document.getElementById("startStopKnop").textContent = "Start";
+    document.getElementById("startStopKnop").style.backgroundColor = "#22c55e";
     opslaan();
   });
 
