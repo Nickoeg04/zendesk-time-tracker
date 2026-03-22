@@ -1,8 +1,14 @@
 async function haalTicketsOp(){
     const tabs = await browser.tabs.query({currentWindow: true, active: true})
+    const url = tabs[0].url;
+    const ticketNummer = url.split("/").pop();
+    document.getElementById("ticketNummer").textContent = ticketNummer;
+    return ticketNummer
+    
+    /* await new Promise(r=>setTimeout(r,100));
     const response = await browser.tabs.sendMessage(tabs[0].id, {action: "getTicket"})
     document.getElementById("ticketNummer").textContent = response.ticket;
-    return response.ticket;
+    return response.ticket;*/
 }
 
 const timer = async () => {
@@ -28,11 +34,7 @@ const timer = async () => {
     if(running === true){
         document.getElementById("startStopKnop").textContent = "Stop";
         interval = setInterval(() => {
-        const totaal = (elapsed + Date.now() - startedAt) / 1000;
-        const uren = Math.floor(totaal / 3600);
-        const minuten = Math.floor(totaal % 3600 / 60);
-        const secondes = Math.floor(totaal % 60);
-        document.getElementById("timer").textContent = `${uren.toString().padStart(2,"0")}:${minuten.toString().padStart(2,"0")}:${secondes.toString().padStart(2,"0")}`;
+        document.getElementById("timer").textContent = timeToString(elapsed + Date.now() - startedAt)
         },1000)
     }
 
@@ -61,26 +63,43 @@ const timer = async () => {
             running = true;
             startedAt = Date.now()
             interval = setInterval(() => {
-                const totaal = (elapsed + Date.now() - startedAt) / 1000;
-                const uren = Math.floor(totaal / 3600);
-                const minuten = Math.floor(totaal % 3600 / 60);
-                const secondes = Math.floor(totaal % 60);
-                document.getElementById("timer").textContent = `${uren.toString().padStart(2,"0")}:${minuten.toString().padStart(2,"0")}:${secondes.toString().padStart(2,"0")}`;
-            },1000)
-            opslaan()
-        } else {
+                document.getElementById("timer").textContent = timeToString(elapsed + Date.now() - startedAt)},1000) 
+                opslaan()
+        }
+         else {
             running = false;
-            elapsed += (Date.now() - startedAt) / 1000;
+            elapsed += Date.now() - startedAt;
             clearInterval(interval);
             document.getElementById("startStopKnop").textContent = "Start";
             opslaan()
         }
     })
+
+
+    document.getElementById("reset").addEventListener("click", () => {
+        running = false;
+        elapsed = 0;
+        startedAt = 0;
+        clearInterval(interval);
+        interval = null;
+        document.getElementById("timer").textContent = "00:00:00";
+        document.getElementById("startStopKnop").textContent = "Start";
+        opslaan();
+    })
+
+}
+
+function timeToString(ms){
+    let s = Math.floor((ms / 1000) % 60);
+    let secondesToString = s.toString().padStart(2,"0")
+    let m = Math.floor((ms / 1000) % 3600 / 60);
+    let minutenToString = m.toString().padStart(2,"0");
+    let u = Math.floor((ms/1000 ) / 3600);
+    let urenToString = u.toString().padStart(2,"0");
+    return `${urenToString}:${minutenToString}:${secondesToString}`
 }
 
 
 
 
-
-
-document.addEventListener("DOMContentLoaded", timer)
+document.addEventListener("DOMContentLoaded", timer);
